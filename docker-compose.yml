@@ -1,0 +1,35 @@
+version: '3.1'
+services:
+  web:
+    image: thebeanfamily/odoo
+    ports:
+      - "8073:8073"
+      - "8074:8074"
+      - "8075:8075"
+    volumes:
+      - ./local:/var/lib/odoo
+      - ./system_setup/prod/odoo.conf:/etc/odoo/odoo.conf
+      - ./shared_addons:/mnt/shared-addons
+      - ./addons:/mnt/extra-addons
+    environment:
+      - PASSWORD_FILE=/run/secrets/postgresql_password
+    secrets:
+      - postgresql_password
+  web_dev:
+    image: thebeanfamily/odoo
+    ports:
+      - "8070:8070"
+      - "8071:8071"
+      - "8072:8072"
+    volumes:
+      - ./local_dev:/var/lib/odoo
+      - ./system_setup/odoo.conf:/etc/odoo/odoo.conf
+      - ./shared_addons:/mnt/shared-addons
+      - ./dev_addons:/mnt/extra-addons
+    environment:
+      - PASSWORD_FILE=/run/secrets/postgresql_password
+    secrets:
+      - postgresql_password
+secrets:
+  postgresql_password:
+    file: odoo_pg_pass

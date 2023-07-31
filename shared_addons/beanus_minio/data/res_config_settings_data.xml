@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo noupdate="1">
+    <record id="ir_attachment_location" model="ir.config_parameter">
+        <field name="key">ir_attachment.location</field>
+        <field name="value">s3</field>
+    </record>
+
+</odoo>
